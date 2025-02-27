@@ -40,11 +40,11 @@ const AppointmentForm = ({
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
-      primaryPhysician: appointment ? appointment.primaryPhysician : '',
-      schedule: appointment ? new Date(appointment.schedule) : new Date(),
-      reason: appointment ? appointment.reason : '',
-      note: appointment ? appointment.note : '',
-      cancellationReason: appointment?.cancellationReason || '',
+      primaryPhysician: appointment ? appointment.primaryPhysician : "",
+      schedule: appointment ? new Date(appointment.schedule) : new Date(Date.now()),
+      reason: appointment ? appointment.reason : "",
+      note: appointment ? appointment.note : "",
+      cancellationReason: appointment?.cancellationReason || "",
     },
   });
 
@@ -55,6 +55,9 @@ const AppointmentForm = ({
     switch (type) {
       case "schedule":
         status = "scheduled";
+        break;
+      case "cancel":
+        status = "cancelled";
         break;
       default:
         status = "pending";

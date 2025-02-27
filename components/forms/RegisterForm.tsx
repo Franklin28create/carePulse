@@ -26,14 +26,15 @@ import { registerPatient } from "@/lib/actions/patient.actions";
 const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  console.log(user);
 
   const form = useForm<z.infer<typeof PatientFormValidation>>({
     resolver: zodResolver(PatientFormValidation),
     defaultValues: {
       ...PatientFormDefaultValues,
-      name: "",
-      email: "",
-      phone: "",
+      name: user?.name || "",
+      email: user?.email || "",
+      phone: user?.phone || "",
     },
   });
 
